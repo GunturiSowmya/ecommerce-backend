@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import connectDB from './config/db.js'
 import authRoutes from './routes/auth.js'
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
 
 dotenv.config()
 
@@ -16,7 +17,7 @@ app.use(cors({
 connectDB()
 
 app.use(express.json())
-
+app.use(cookieParser())
 app.use('/auth',authRoutes)
 
 app.listen(process.env.PORT,()=>{
