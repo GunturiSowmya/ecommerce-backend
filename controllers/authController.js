@@ -91,7 +91,7 @@ export const getMe = (req, res) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET) // jwt.verify() will return decoded payload of token
-    console.log(true)
+    
     return res.json({
       loggedIn: true,
       user: {

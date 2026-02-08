@@ -59,23 +59,24 @@ export const getCartData = async(req,res) => {
 
 export const removeFromCart = async (req, res) => {
   try {
-    const { productId } = req.query;
+    const { productId } = req.body;
     const userId = req.user.id;
    
     const cart = await Cart.findOneAndUpdate(
       { user: userId },
       { $pull: { items: { product: productId } } },
       { new: true }
-    );
+    ).populate("items.product");
     
     if (!cart) {
       return res.status(404).json({ message: "Cart not found" });
     }
-    console.log(cart)
+
     res.status(200).json({
       message: "Product removed from cart",
-      cart,
+      items: cart.items,
     });
+    
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
