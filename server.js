@@ -5,6 +5,7 @@ import connectDB from './config/db.js'
 import authRoutes from './routes/auth.js'
 import imagesRoutes from './routes/images.js'
 import cartRoutes from './routes/cart.js'
+import wishlistRoutes from './routes/wishlist.js'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import path from "path";
@@ -27,6 +28,7 @@ app.use(express.json())
 app.use(cookieParser())
 app.use('/auth',authRoutes)
 app.use('/api/cart', cartRoutes)
+app.use('/api/wishlist', wishlistRoutes)
 app.use('/api',imagesRoutes)
 
 app.listen(process.env.PORT,()=>{
