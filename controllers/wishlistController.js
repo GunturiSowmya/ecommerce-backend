@@ -30,7 +30,7 @@ export const addToWishlist = async (req, res) => {
 
     await wishlist.save();
     await wishlist.populate("items.product");
-    console.log(wishlist.items)
+   
     res.status(200).json({ items: wishlist.items });
   } catch (error) {
     res.status(500).json({ message: "Failed to add to wishlist" });
@@ -55,7 +55,7 @@ const wishlist = await Wishlist.findOne({ user: userId })
     if (!wishlist) {
       return res.json({ items: [] });
     }
-
+    console.log(wishlist.items)
     res.json({ items: wishlist.items });
 
   } catch (error) {

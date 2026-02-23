@@ -4,29 +4,41 @@ import mongoose from 'mongoose'
 
 export const getCategoryProducts = async (req, res) => {
   try {
-    const { category} = req.query;
-   
-    let filter = {};
-
-      if (category) {
-      filter.category = { $regex: category, $options: "i" };
+    let { category, subcategory } = req.query;
+//console.log(category+" "+subcategory);
+    if (!category) {
+      return res.status(400).json({
+        success: false,
+        message: "Category is required",
+      });
     }
 
+    
 
+    let filter = { category };
+
+    // Only apply subcategory filter if it is provided
+    if (subcategory && subcategory.trim() !== "") {
+      filter.subcategory = subcategory.toLowerCase();
+    }
 
     const products = await Products.find(filter);
-    
-    res.status(200).json({
+
+    return res.status(200).json({
       success: true,
+      count: products.length,
       data: products,
     });
+
   } catch (error) {
-    res.status(500).json({
+    console.error(error);
+    return res.status(500).json({
       success: false,
-      message: error.message,
+      message: "Internal Server Error",
     });
   }
 };
+
 
 export const getProducts = async (req, res) => {
   try {

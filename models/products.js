@@ -35,7 +35,10 @@ const productsSchema = new mongoose.Schema(
       trim: true,
       index: true, // IMPORTANT for category filtering
     },
-
+    subcategory: {
+      type: String,
+     // IMPORTANT for category filtering
+    },
     rating: {
       type: Number,
       default: 0,
